@@ -1,0 +1,78 @@
+<html>
+
+<head>
+	<title>Cadastro de Clientes</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<h1> Cadastro de Clientes </h1>
+	<div id="app">
+
+		<div class="div-selecao">
+
+			<h2>Clientes Cadastrados ({{ clientes.length }})</h2>
+
+			<table>
+				<tr>
+					<th>Código</th>
+					<th>Nome</th>
+					<th>CPF/CNPJ</th>
+					<th>Ação</th>
+				</tr>
+				<tr v-for="item in clientes" :class="{selected: clienteSelecionado.codigo == item.codigo}">
+					<td>{{ item.codigo }}</td>
+					<td>{{ item.nome }}</td>
+					<td>{{ item.cpf || item.cnpj }}</td>
+					<td><button @click="selecionar(item)">Selecionar</button></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="div-cadastro" v-if="cadastro && cadastro.codigo != null">
+			<h2>Cadastro de Cliente | Código: {{ cadastro.codigo }}</h2>
+
+			<label>Nome</label>
+			<input type="text" v-model="cadastro.nome" />
+
+			<label>CPF</label>
+			<input type="text" v-model="cadastro.cpf" />
+
+			<label>RG</label>
+			<input type="text" v-model="cadastro.rg" />
+
+			<label>CNPJ</label>
+			<input type="text" v-model="cadastro.cnpj" />
+
+			<label>Inscrição Estadual</label>
+			<input type="text" v-model="cadastro.ie" />
+			
+		</div>
+	</div>
+</body>
+<script>
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				clientes: [
+					{ codigo: 1, nome: "FRANK SANTOS", tipoPessoa: "FISICA", cpf: "65651227334", rg: "63128656" },
+					{ codigo: 2, nome: "TRINEO SISTEMAS", tipoPessoa: "JURIDICA", cnpj: "01256358000125", ie: "20564624-2" }
+				],
+				clienteSelecionado: {},
+				cadastro: {}
+			}
+		},
+		methods: {
+			selecionar(cliente) {
+				this.clienteSelecionado = cliente
+				this.cadastro = Object.assign({}, cliente)
+			}
+		}
+	})
+</script>
+
+</html>
