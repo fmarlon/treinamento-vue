@@ -34,9 +34,12 @@
 
 		<div class="div-cadastro" v-if="cadastro && cadastro.codigo != null">
 			<h2>Cadastro de Cliente | Código: {{ cadastro.codigo }}</h2>
-
+			
 			<label>Nome</label>
 			<input type="text" v-model="cadastro.nome" />
+
+			<label>Tipo Pessoa</label>
+			<input type="text" readonly disabled="true" v-model="cadastro.tipoPessoa" />
 
 			<label>CPF</label>
 			<input type="text" v-model="cadastro.cpf" />
